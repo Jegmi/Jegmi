@@ -22,15 +22,15 @@ If we had reason to believe that one model was more likely, we would apply Bayes
 
 Starting with $H_{A \rightarrow B}$, we assume that $A$ takes its values independently of $B$ but that $B$ depends on the realisation of $A$. Therefore, the joint probability factorises into the prior over $A$ and the conditional probability of $B$ given the $A$:
 
-$$ p(A,B) = p(B|A)p(A)$$
+$$p(A,B) = p(B|A)p(A)$$
 Since the random variables $A$ and $B$ are binary, the probability distributions are Bernoulli distributions, parameterised by the rate of success. For the prior we have:
 
 $$p(A) = u^A (1- u)^{1-A}$$
 The conditional probability of $B$ is described by a Bernoulli for each of the outcomes of $A$:
-$$ p(B|A=0) = q_0^B (1-q_0)^B $$
+$$p(B|A=0) = q_0^B (1-q_0)^B $$
 and 
 
-$$ p(B|A=1) = q_1^B (1-q_1)^B $$
+$$p(B|A=1) = q_1^B (1-q_1)^B $$
 
 The parameters $u, q_0, q_1 \in [0,1]$ describe the likelihood of the data. As a shorthand, we use $\theta = \{u, q_0, q_1\}$. An intermediate step to obtain the model evidence is to infer the posterior distribution over these parameters from the data $p(\theta | D)$, that is the probability of the parameters after having seen the data.
 
@@ -42,10 +42,10 @@ Our initial belief for the parameters $\theta$ is represented by uniform distrib
 
 Bayes' theorem states that prior $p(\theta)$ and likelihood $p(D | \theta)$ of the data are proportional to the posterior $p(\theta | D)$. The proportionality constant is the model evidence:
 
-$$ p(\theta | D) = \frac{p(D|\theta)p(\theta)}{p(D)}$$
+$$p(\theta | D) = \frac{p(D|\theta)p(\theta)}{p(D)}$$
 Since the posterior on the lefthand side is a probability distribution, it integrates to one. Integrating over $\theta$ on both sides of the equations shows that the model evidence is obtained by integration over likelihood and prior:
 
-$$ 1 = \frac{\int p(D|\theta)p(\theta) d\theta}{p(D)}$$
+$$1 = \frac{\int p(D|\theta)p(\theta) d\theta}{p(D)}$$
 We can pull the evidence out of the integral because it is independent of the parameters.
 
 ## Conjugate priors make computing the evidence easy
@@ -56,7 +56,7 @@ It is hard perform integrations in high dimensions. Fortunately, closed-form sol
 
 Let us illustrate the utility of conjugate priors with a simple example. Focusing on the binary variable $A$ (e.g. a coin) and ignoring $B$, we parametrise the probability of $A=1$ with $u$. We observe $N_A$ positive outcomes out of a total of $N$. Our prior belief about $u$ is uniform. The uniform distribution in the unit interval of is a special case of the $\beta$-distribution $p(u) = \beta(u; \alpha_0=1, \beta_0=1)$. The $\beta$-distribution for two positive parameters $\alpha, \beta > 0$ is: 
 
-$$ B(u; \alpha, \beta) = \frac{1}{Z(\alpha,\beta)} u^{\alpha-1} (1-u)^{\beta-1} $$
+$$B(u; \alpha, \beta) = \frac{1}{Z(\alpha,\beta)} u^{\alpha-1} (1-u)^{\beta-1} $$
 
 The normalisation constant is the beta-function (different from the $\beta$-distribution!) defined in terms of the $\Gamma$ function, a generalisation of the factorial $Z(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}$.  We can see how $\alpha = \beta = 1$ makes the $\beta$-distribution uniform, that is independent of the variable $u$. Intuitively, the $\beta$-distribution represents about belief about the probability of positive (binary) events. The mean is given by $E[u] = \alpha / (\alpha + \beta)$ and the concentration $\alpha + \beta$ our belief to sample close to the mean. 
 
@@ -70,26 +70,26 @@ Now we return to the product of likelihood and prior, over which weh ave to inte
 $$p(D|u)p(u) = \frac{1}{Z(\alpha,\beta)} u^{\alpha-1} (1-u)^{\beta-1} \prod_i u^{A_i} (1-u)^{1-A_i}$$
 Aggregating the product into counts $N_A$ and $N - N_A$ for positive and negative events respectively, we can easily group terms in powers of $u$ and $1-u$:
 
-$$p(D|u)p(u) = \frac{1}{Z(\alpha,\beta)} u^{\alpha-1+N_A} (1-u)^{\beta-1 + N - N_A} $$
+$$p(D|u)p(u) = \frac{1}{Z(\alpha,\beta)} u^{\alpha-1+N_A} (1-u)^{\beta-1 + N - N_A}$$
 We recognise an unnormalised $\beta$-distribution with parameters $\alpha' = \alpha + N_A$ and $\beta' = \beta + N - N_A$. Introducing a normalisation constant, we have:
 
-$$ p(u) p(D|u) = \frac{Z(\alpha',\beta')}{Z(\alpha,\beta)} B(u; \alpha', \beta') $$
+$$p(u) p(D|u) = \frac{Z(\alpha',\beta')}{Z(\alpha,\beta)} B(u; \alpha', \beta')$$
 Using the fact that the $\beta$-distribution is properly normalised and hence integrates to one, we can obtain a close-form solution for the model evidence:
 
-$$ p(D) = \int p(D|u)p(u) du = \frac{Z(\alpha',\beta')}{Z(\alpha,\beta)} $$
+$$p(D) = \int p(D|u)p(u) du = \frac{Z(\alpha',\beta')}{Z(\alpha,\beta)}$$
 Note that we have close-form solution for the posterior as well: $p(u|D) = B(u;\alpha',\beta')$.
 
 ## Model evidence for $A \rightarrow B$
 
 Equipped with the $\beta$-distribution, we can now write down the evidence for the first model in our original problem $p(D|H_{A \rightarrow B})$. In the previous example, which introduced the $\beta$-distribution, we had a single parameter $u$. In our causal inference problem, we have three parameters $\theta = \{u, q_0, q_1\}$, representing the probability over $A$ and the conditional probability $p(B|A)$ respectively. These parameters appear in the likelihood with powers that depend on the occurrences of $A$ and combinations of $A$ and $B$ observed in the data. Grouping these factors together, we will discover three $\beta$-distributions. From the $\beta$-distributions we can then obtain the evidence. We reference the entries in the data table with $d_{ij}$. For example, $d_{01} = 5$ means that $B=0$ and $A=1$ was observed 5 times. We can ignore the prior over $\theta$ because it is flat (it is a constant):
 
-$$ p(\theta) p(D|\theta) = u^{d_{01}+d_{11}} (1-u)^{d_{00}+d_{10}} \times q_0^{d_{10}} (1-q_0)^{d_{00}} \times q_1^{d_{11}} (1-q_0)^{d_{01}}$$
+$$p(\theta) p(D|\theta) = u^{d_{01}+d_{11}} (1-u)^{d_{00}+d_{10}} \times q_0^{d_{10}} (1-q_0)^{d_{00}} \times q_1^{d_{11}} (1-q_0)^{d_{01}}$$
 The first two factors correspond to the prior over $A$, counting total occurrences of $A=1$ and $A=0$, independently of $B$. The next two factors count outcomes of $B$ when $A=0$ and the last two when $A=1$. They correspond to the conditional probabilities of $B$ given $A$. Recognising the $\beta$-distributions, e.g. $B(u; d_{01}+d_{11}+1, d_{00}+d_{10}+1)$), introducing their normalisation constants and integrating over $\theta$, we obtain the model evidence:
 
-$$ p(D) = Z(d_{01}+d_{11}+1, d_{00}+d_{10}+1)\times Z(d_{10}+1, d_{00}+1) \times Z(d_{11}+1, d_{01}+1)$$
+$$p(D) = Z(d_{01}+d_{11}+1, d_{00}+d_{10}+1)\times Z(d_{10}+1, d_{00}+1) \times Z(d_{11}+1, d_{01}+1)$$
 Note that the $\beta$-distributions that we integrated out were the posterior distributions over $\theta$ that people are often interested in for their own right. However, we proceed to simplify the normalisation constants by first writing them out as gamma functions
 
-$$ p(D) = \frac{\Gamma(d_{01}+d_{11}+1) \Gamma(d_{00}+d_{10}+1)}{\Gamma(d_{01}+d_{11} + d_{00} + d_{10}+2)} 
+$$p(D) = \frac{\Gamma(d_{01}+d_{11}+1) \Gamma(d_{00}+d_{10}+1)}{\Gamma(d_{01}+d_{11} + d_{00} + d_{10}+2)} 
 \times 
 \frac{\Gamma(d_{10}+1) \Gamma(d_{00}+1)}{\Gamma(d_{10}+d_{00} + 2)}
 \times 
@@ -98,34 +98,32 @@ Z(d_{11}+1, d_{01}+1)$$
 
  using the factorial property $\Gamma(n+1)/\Gamma(n) = n$, we find terms that cancel out. To avoid confusion, we explicitly include the dependence on the model in the final result:
 
-$$ p(D|H_{A \rightarrow B}) = \frac{1}{\Gamma(N+2)} 
+$$p(D|H_{A \rightarrow B}) = \frac{1}{\Gamma(N+2)} 
 \times 
 \frac{\Gamma(d_{10}+1) \Gamma(d_{00}+1)}{d_{10}+d_{00} + 1}
 \times 
-\frac{\Gamma(d_{11}+1) \Gamma(d_{01}+1)}{d_{01}+d_{11} + 1}
-$$
+\frac{\Gamma(d_{11}+1) \Gamma(d_{01}+1)}{d_{01}+d_{11} + 1}$$
 
 ## Model evidence for $B  \rightarrow A$
 
 The analogous calculation for the model $p(D|H_{B \rightarrow A})$ yields:
 
-$$ p(D|H_{B \rightarrow A}) = Z(d_{10}+d_{11}+1, d_{00}+d_{01}+1)\times Z(d_{01}+1, d_{00}+1) \times Z(d_{11}+1, d_{10}+1)$$
+$$p(D|H_{B \rightarrow A}) = Z(d_{10}+d_{11}+1, d_{00}+d_{01}+1)\times Z(d_{01}+1, d_{00}+1) \times Z(d_{11}+1, d_{10}+1)$$
 
 which further reduces to
 
-$$ p(D|H_{B \rightarrow A}) = \frac{1}{\Gamma(N+2)} 
+$$p(D|H_{B \rightarrow A}) = \frac{1}{\Gamma(N+2)} 
 \times 
 \frac{\Gamma(d_{01}+1) \Gamma(d_{00}+1)}{d_{01}+d_{00} + 1}
 \times 
-\frac{\Gamma(d_{11}+1) \Gamma(d_{10}+1)}{d_{10}+d_{11} + 1}
-$$
+\frac{\Gamma(d_{11}+1) \Gamma(d_{10}+1)}{d_{10}+d_{11} + 1}$$
 Note that terms that were computed from individual entries in the data table, e.g. $\Gamma(d_{01} + 1)$ and terms that depend on the sum of the data table, like $\Gamma(N+2)$ are shared between both models and cancel out once we compute the ratio of the model evidences.
 
 ## The hypothesis $A$ causes $B$  is likely
 
 Finally, we compute the Bayes factor, i.e., the ratio of model evidences. It reveals weak evidence in favour of the hypothesis that $A$ causes $B$:
- $$ \gamma = \frac{p(D | H_{A \rightarrow B})}{p(D | H_{B \rightarrow A})} 
- = \frac{(d_{01}+d_{00} + 1)(d_{10}+d_{11} + 1)}{(d_{10}+d_{00} + 1)(d_{01}+d_{11} + 1) } = \frac{(765 + 1)(235 + 1)}{(950 + 1)(50 + 1)} = 3.8 $$
+ $$\gamma = \frac{p(D | H_{A \rightarrow B})}{p(D | H_{B \rightarrow A})} 
+ = \frac{(d_{01}+d_{00} + 1)(d_{10}+d_{11} + 1)}{(d_{10}+d_{00} + 1)(d_{01}+d_{11} + 1) } = \frac{(765 + 1)(235 + 1)}{(950 + 1)(50 + 1)} = 3.8$$
 
 Why would one model would be more likely than the other? The reason is that the model $H_{A \rightarrow B}$ is more compatible with the uniform priors over the parameters $\theta$. As MacKay points out, it seems absurd given that uniform priors should make all values for $\theta$ equally probable. However, the evidence is the integral of the product of likelihood and prior. If prior has low probability mass in areas where the likelihood function assigns weight, the product will be low compared to the case where the likelihood function has most of its mass close to mass in the prior. 
 
@@ -141,7 +139,8 @@ We have a parameter distribution before, the prior, and after including the data
 
 The similarity between two probability distributions can be measured with the Kullback-Leibler (KL) divergence:
 
-$$ D_{KL}(p(\theta) || q(\theta) ) = \int  p(\theta) \log \frac{p(\theta)}{q(\theta)} d\theta $$
+$$D_{KL}(p(\theta) || q(\theta) ) = \int  p(\theta) \log \frac{p(\theta)}{q(\theta)} d\theta$$
+
 The KL-divergence is non-zero $D_{KL}(p(\theta) || q(\theta) ) \geq 0$ and only zero when both arguments are equal. However, it is not a distance because it is not symmetric in its arguments. So how do the argument differ? The first arguments acts as reference distribution against which the second distribution is evaluated. Errors between the distributions are measured via the difference of their logs $\log  p(\theta) - \log q(\theta)$. Error counts more in regions where $p(\theta)$ has significant probability mass. David MacKay gives another perspective from coding/decoding perspective: the KL-divergence measures the information lost when approximating $p(\theta)$ with $q(\theta)$.
 
 ### Posterior as reference distribution
@@ -152,14 +151,13 @@ For our problem, we need to know how closely the posterior aligns with the origi
 
 For each of the parameters in $\theta$, the posterior is a product of $\beta$-distributions. This is good news because the parameters $\theta$ are independent. For joint distribution of independent parameters, the KL-divergence is simply the sum of the KL-divergence of the individual factors:
 
-$$ D_{KL}(p(\theta) || p(\theta | D)) = \sum_{\theta_i \in \theta} D_{KL}(p(\theta) || p(\theta_i | D))
-$$
+$$D_{KL}(p(\theta) || p(\theta | D)) = \sum_{\theta_i \in \theta} D_{KL}(p(\theta) || p(\theta_i | D))$$
 
 ### A closed form solution for the $\beta$-distributions
 
 For two beta distributions with parameters $\alpha_1, \beta_1$ and $\alpha_2, \beta_2$ the KL-divergence has a close-form solution:
 
-$$ D_{KL}(B(\alpha_1, \beta_1) || B(\alpha_2, \beta_2)) = \log \frac{Z(\alpha_2, \beta_2)}{Z(\alpha_1, \beta_1)} + (\alpha_1 - \alpha_2) \psi(\alpha_1) - \psi(\alpha_1 + \beta_1) + (\beta_1 - \beta_2) (\psi(\beta_1) - \psi(\alpha_1 + \beta_1))$$
+$$D_{KL}(B(\alpha_1, \beta_1) || B(\alpha_2, \beta_2)) = \log \frac{Z(\alpha_2, \beta_2)}{Z(\alpha_1, \beta_1)} + (\alpha_1 - \alpha_2) \psi(\alpha_1) - \psi(\alpha_1 + \beta_1) + (\beta_1 - \beta_2) (\psi(\beta_1) - \psi(\alpha_1 + \beta_1))$$
 
 where $Z(\alpha, \beta)$ is the normalisation constant (also called beta-function, see introduction of the $\beta$-distribution above) and $\psi(x) = \partial_x \log \Gamma(x)$ is the digamma function, the logarithmic derivative of the gamma function. 
 
