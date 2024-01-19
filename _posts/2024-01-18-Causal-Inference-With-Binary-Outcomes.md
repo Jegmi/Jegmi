@@ -18,9 +18,9 @@ The following table $d_{ij}$ with the row and column indexes $i,j \in \{0,1\}$ s
 
 To answer the question we use Bayesian model comparison. Each direction of causality is represented by a model. For each model, we first compute the model evidence, $p(D \vert H_{A \rightarrow B})$ and $p(D \vert H_{B \rightarrow A})$ respectively. Assuming that both models are equally likely a-priori, the ratio of the model evidences, also called *Bayes factor*, answers the question which model is better supported by the data:
 
-$$\gamma = \frac{p(D | H_{A \rightarrow B})}{p(D | H_{B \rightarrow A})}  $$
+$$\gamma = \frac{p(D | H_{A \rightarrow B})}{p(D | H_{B \rightarrow A})}$$
 
-If we had reason to believe that one model was more likely, we would apply Bayes theorem to obtain the posterior belief in the model: $p(H|D) \propto p(D|H) p(H)$.
+If we had reason to believe that one model was more likely, we would apply Bayes theorem to obtain the posterior belief in the model: $p(H \vert D) \propto p(D \vert H) p(H)$.
 
 ## Specifying the model parameters and priors
 
