@@ -39,5 +39,5 @@ defaults:
       path: "_posts"
       type: post
     values:
-    layout: "posts"            
+      layout: "posts"            
       tags: Other
