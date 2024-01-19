@@ -38,4 +38,4 @@ defaults:
   - scope:
       path: ""
     values:
-      layout: "default"
+      layout: "post"
