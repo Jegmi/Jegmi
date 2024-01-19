@@ -2,7 +2,7 @@
 use_math: true
 ---
 
-# Which direction is causal?
+# The direction of causality?
 
 "Every time the streets are wet, there was rain". Reading this statement, one could be forgiven for thinking that wet streets caused rain. Of course, we *know* that rain causes wet streets, not the other way around. But for other problems that's less obvious. For example, back pain could cause depression but depression could also cause back pain, e.g., when not leaving bed for days. In the absence of an intuitive understanding of causality, how can we infer causality from data? In this post, I will work through an easy example taken from [David MacKay's great book](https://www.inference.org.uk/itprnn/book.pdf) (exercise 35.3).
 
@@ -49,9 +49,11 @@ Our initial belief for the parameters $\theta$ is represented by uniform distrib
 Bayes' theorem states that prior $p(\theta)$ and likelihood $p(D \vert \theta)$ of the data are proportional to the posterior $p(\theta \vert D)$. The proportionality constant is the model evidence:
 
 $$p(\theta | D) = \frac{p(D \vert \theta)p(\theta)}{p(D)}$$
+
 Since the posterior on the lefthand side is a probability distribution, it integrates to one. Integrating over $\theta$ on both sides of the equations shows that the model evidence is obtained by integration over likelihood and prior:
 
 $$1 = \frac{\int p(D|\theta)p(\theta) d\theta}{p(D)}$$
+
 We can pull the evidence out of the integral because it is independent of the parameters.
 
 ## Conjugate priors make computing the evidence easy
