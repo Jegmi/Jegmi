@@ -16,7 +16,7 @@ The following table $d_{ij}$ with the row and column indexes $i,j \in \{0,1\}$ s
 | **B=1** |   $d_{10}=190$ |   $d_{11}=45$ |    $d_{1\cdot}=235$ |
 | **Total** |   $d_{\cdot0}=950$ |   $d_{\cdot1}=50$ |    $N=1000$ |
 
-To answer the question we use Bayesian model comparison. Each direction of causality is represented by a model. For each model, we first compute the model evidence, $`p(D | H_{A \rightarrow B})`$ and $`p(D | H_{B \rightarrow A})`$ respectively. Assuming that both models are equally likely a-priori, the ratio of the model evidences, also called *Bayes factor*, answers the question which model is better supported by the data:
+To answer the question we use Bayesian model comparison. Each direction of causality is represented by a model. For each model, we first compute the model evidence, $p(D \vert H_{A \rightarrow B})$ and $p(D \vert H_{B \rightarrow A})$ respectively. Assuming that both models are equally likely a-priori, the ratio of the model evidences, also called *Bayes factor*, answers the question which model is better supported by the data:
 
 $$\gamma = \frac{p(D | H_{A \rightarrow B})}{p(D | H_{B \rightarrow A})}  $$
 
