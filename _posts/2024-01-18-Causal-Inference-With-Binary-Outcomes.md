@@ -1,5 +1,4 @@
 ---
-layout: post
 use_math: true
 ---
 
