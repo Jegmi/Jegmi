@@ -91,9 +91,11 @@ Note that we have close-form solution for the posterior as well: $p(u \vert D) =
 Equipped with the $\beta$-distribution, we can now write down the evidence for the first model in our original problem $p(D \vert H_{A \rightarrow B})$. In the previous example, which introduced the $\beta$-distribution, we had a single parameter $u$. In our causal inference problem, we have three parameters $\theta = (u, q_0, q_1)$, representing the probability over $A$ and the conditional probability $p(B \vert A)$ respectively. These parameters appear in the likelihood with powers that depend on the occurrences of $A$ and combinations of $A$ and $B$ observed in the data. Grouping these factors together, we will discover three $\beta$-distributions. From the $\beta$-distributions we can then obtain the evidence. We reference the entries in the data table with $d_{ij}$. For example, $d_{01} = 5$ means that $B=0$ and $A=1$ was observed 5 times. We can ignore the prior over $\theta$ because it is flat (it is a constant):
 
 $$p(\theta) p(D|\theta) = u^{d_{01}+d_{11}} (1-u)^{d_{00}+d_{10}} \times q_0^{d_{10}} (1-q_0)^{d_{00}} \times q_1^{d_{11}} (1-q_0)^{d_{01}}$$
+
 The first two factors correspond to the prior over $A$, counting total occurrences of $A=1$ and $A=0$, independently of $B$. The next two factors count outcomes of $B$ when $A=0$ and the last two when $A=1$. They correspond to the conditional probabilities of $B$ given $A$. Recognising the $\beta$-distributions, e.g. $B(u; d_{01}+d_{11}+1, d_{00}+d_{10}+1)$), introducing their normalisation constants and integrating over $\theta$, we obtain the model evidence:
 
 $$p(D) = Z(d_{01}+d_{11}+1, d_{00}+d_{10}+1)\times Z(d_{10}+1, d_{00}+1) \times Z(d_{11}+1, d_{01}+1)$$
+
 Note that the $\beta$-distributions that we integrated out were the posterior distributions over $\theta$ that people are often interested in for their own right. However, we proceed to simplify the normalisation constants by first writing them out as gamma functions
 
 $$p(D) = \frac{\Gamma(d_{01}+d_{11}+1) \Gamma(d_{00}+d_{10}+1)}{\Gamma(d_{01}+d_{11} + d_{00} + d_{10}+2)} 
@@ -124,11 +126,13 @@ $$p(D|H_{B \rightarrow A}) = \frac{1}{\Gamma(N+2)}
 \frac{\Gamma(d_{01}+1) \Gamma(d_{00}+1)}{d_{01}+d_{00} + 1}
 \times 
 \frac{\Gamma(d_{11}+1) \Gamma(d_{10}+1)}{d_{10}+d_{11} + 1}$$
+
 Note that terms that were computed from individual entries in the data table, e.g. $\Gamma(d_{01} + 1)$ and terms that depend on the sum of the data table, like $\Gamma(N+2)$ are shared between both models and cancel out once we compute the ratio of the model evidences.
 
 ## The hypothesis $A$ causes $B$  is likely
 
 Finally, we compute the Bayes factor, i.e., the ratio of model evidences. It reveals weak evidence in favour of the hypothesis that $A$ causes $B$:
+
  $$\gamma = \frac{p(D | H_{A \rightarrow B})}{p(D | H_{B \rightarrow A})} 
  = \frac{(d_{01}+d_{00} + 1)(d_{10}+d_{11} + 1)}{(d_{10}+d_{00} + 1)(d_{01}+d_{11} + 1) } = \frac{(765 + 1)(235 + 1)}{(950 + 1)(50 + 1)} = 3.8$$
 
