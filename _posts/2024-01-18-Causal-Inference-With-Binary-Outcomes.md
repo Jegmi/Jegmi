@@ -84,7 +84,7 @@ Using the fact that the $\beta$-distribution is properly normalised and hence in
 
 $$p(D) = \int p(D|u)p(u) du = \frac{Z(\alpha',\beta')}{Z(\alpha,\beta)}$$
 
-Note that we have close-form solution for the posterior as well: $p(u|D) = B(u;\alpha',\beta')$.
+Note that we have close-form solution for the posterior as well: $p(u \vert D) = B(u;\alpha',\beta')$.
 
 ## Model evidence for $A \rightarrow B$
 
