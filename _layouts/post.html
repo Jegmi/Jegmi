@@ -25,5 +25,9 @@ layout: default
     {%- include disqus_comments.html -%}
     {%- endif -%}
 
+    {% if page.use_math %}
+    {% include mathjax-custom.html %}
+    {% endif %}
+
     <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
