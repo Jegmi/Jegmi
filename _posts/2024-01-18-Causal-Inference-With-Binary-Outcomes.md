@@ -1,3 +1,8 @@
+---
+layout: post
+use_math: true
+---
+
 # Which direction is causal?
 
 "Every time the streets are wet, there was rain". Reading this statement, one could be forgiven for thinking that wet streets caused rain. Of course, we *know* that rain causes wet streets, not the other way around. But for other problems that's less obvious. For example, back pain could cause depression but depression could also cause back pain, e.g., when not leaving bed for days. In the absence of an intuitive understanding of causality, how can we infer causality from data? In this post, I will work through an easy example taken from [David MacKay's great book](https://www.inference.org.uk/itprnn/book.pdf) (exercise 35.3).
