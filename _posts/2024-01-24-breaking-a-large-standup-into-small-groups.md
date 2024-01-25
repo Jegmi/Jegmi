@@ -35,6 +35,5 @@ For $n$ team members and $k=2$, we list the unique pairs. The diagonal is irrele
 | (...,1) | (...,2) | (...,...)|         |
 | ($n$,1) | ($n$,2) | ($n$,...)| ($n,n-1$)|
 
-An example of a standup would be every 2nd entry in the 1-off-diagonal: $(2,1),(4,3),(6,5),/dots$. We see that each standup has $n/2$ pairs (assuming $n$ is even). Assuming such a sequence exists, there are $n-1$ standups before pairs are repeated. For example, for the first person the standups $n-1$ standups would include the following pairs $(2,1),(3,1),(4,1),\dots,(n,1))$. How do we select $n-1$ standups of $n/2$ pairs, such that all $n(n-1)/2$ pairs occur exactly once?
-
+An example of a standup would be every 2nd entry in the 1-off-diagonal: $(2,1),(4,3),(6,5),\dots$. We see that each standup has $n/2$ pairs (assuming $n$ is even). Assuming such a sequence exists, there are $n-1$ standups before pairs are repeated. For example, for the first person the standups $n-1$ standups would include the following pairs $(2,1),(3,1),(4,1),\dots,(n,1))$. How do we select $n-1$ standups of $n/2$ pairs, such that all $n(n-1)/2$ pairs occur exactly once?
 
