@@ -26,7 +26,7 @@ We want maximal exposure and diversity. How to maximise the number of iterations
 
 ## The solution for $k=2$
 
-For $n$ team members and $k=2$, we start out by listening the unique pairs. Because we care only about pairs, the diagonal is irrelevant. Because there is no ordering, we stick with the lower triangular matrix.
+For $n$ team members and $k=2$, we list the unique pairs. The diagonal is irrelevant because people are not paired with themselves. We keep only the lower triangular matrix because there is no order within a pair:
 
 |         |         |         |         |
 |---------|---------|---------|---------|
@@ -35,6 +35,6 @@ For $n$ team members and $k=2$, we start out by listening the unique pairs. Beca
 | (...,1) | (...,2) | (...,...)|         |
 | ($n$,1) | ($n$,2) | ($n$,...)| ($n,n-1$)|
 
-A person can only be part of one breakout group at any given time. So if we select a pair, let's say $(2,1)$, no other pair for that standup may contain the numbers $1$ and $2$. Otherwise, these team members would have to show up in two breakout groups simultanesouly. On other words, the rows and columns with the indexes $1$ and $2$ can no longer be used in this standup.
+An example of a standup would be every 2nd entry in the 1-off-diagonal: $(2,1), (4,3), (6,5), ..$. We see that each standup has $n/2$ pairs (assuming $n$ is even). Assuming such a sequence exists, there are $n-1$ standups before pairs are repeated. For example, for the first person the standups $n-1$ standups would include the following pairs $(2,1), (3,1), (4,1), .., (n,1))$. How do we select $n-1$ standups of $n/2$ pairs, such that all $n(n-1)/2$ pairs occur exactly once?
 
 
