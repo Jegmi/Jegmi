@@ -18,18 +18,23 @@ For a team of $n$ members and only weak technical overlap, we seek a standup for
 2. strengthens the sense of belonging and,
 3. scales with $n$.
 
-The answer of course is to form breakout groups of size $k < n$. Like $k=3$. We tried. People were excited. 
-The only issue was that some colleagues were never part of the same group. Others were frequently lumbed together. 
+The answer of course is to form breakout groups of size $k < n$. Like $k=3$. Breakout groups are run in parallel. It's more personal. You can ask questions. You can pickup people where they are. 
+
+We tried. The team was happy. Only one issue remained. Some colleagues were never part of the same group. Others were frequently lumbed together. 
 
 We want maximal exposure and diversity. How to maximise the number of iterations until the two people meet again?
 
 ## The solution for $k=2$
 
-or a pairing 
+For $n$ team members and $k=2$, we start out by listening the unique pairs. Because we care only about pairs, the diagonal is irrelevant. Because there is no ordering, we stick with the lower triangular matrix.
 
 |         |         |         |         |
 |---------|---------|---------|---------|
 | (2,1)   |         |         |         |
 | (3,1)   | (3,2)   |         |         |
 | (...,1) | (...,2) | (...,...)|         |
-| ($n$,1) | ($n$,2) | ($n$,...)| ($n$,$n-1$)|
+| ($n$,1) | ($n$,2) | ($n$,...)| ($n,n-1$)|
+
+A person can only be part of one breakout group at any given time. So if we select a pair, let's say $(2,1)$, no other pair for that standup may contain the numbers $1$ and $2$. Otherwise, these team members would have to show up in two breakout groups simultanesouly. On other words, the rows and columns with the indexes $1$ and $2$ can no longer be used in this standup.
+
+
