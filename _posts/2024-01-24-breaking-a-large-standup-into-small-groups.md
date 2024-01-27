@@ -37,3 +37,14 @@ For $n$ team members and $k=2$, we list the unique pairs. The diagonal is irrele
 
 An example of a standup would be every 2nd entry in the 1-off-diagonal: $(2,1),(4,3),(6,5),\dots$. We see that each standup has $n/2$ pairs (assuming $n$ is even). Assuming such a sequence exists, there are $n-1$ standups before pairs are repeated. For example, for the first person the standups $n-1$ standups would include the following pairs $(2,1),(3,1),(4,1),\dots,(n,1))$. How do we select $n-1$ standups of $n/2$ pairs, such that all $n(n-1)/2$ pairs occur exactly once?
 
+The chess player Richard Schurig had, according to Wikipedia, the same problem. He wanted that over the course of the tournament each player was paired with all others. The scheduling algorithm goes under the name [Round-Robin Tournament]([url](https://en.wikipedia.org/wiki/Round-robin_tournament)). 
+
+The following figure shows a visualisation of pairs for $n=10$. The initial pairing is a cross-diagonal in the upper triangular matrix (in dark blue). With each iteration the diagonal shifts by two. Iterations go (over the rainbow) from blue to red. Each iteration a point hits the bottom of the grid, i.e., the y-coordinate becomes zero. This is when we re-introduce them in the lower triangular matrix. Since we do not care about the ordering of the pair, these points can be brought back into the upper triangle by interchanging x and y coordinates, shown in shaded colors. Note how the re-introduced points are shifted by 1 to avoid leaving have of the grid empty and double-covering the other half. The axis that defies this rule is the zero-axis. Here, a single points simply travels down from (1,10) all the way to (1,2). 
+
+The final panel shows all points together. It looks messy. But you can see the diagonals traveling across the grid.
+
+![round_robin_tournament_visual](https://github.com/Jegmi/jegmi.github.io/assets/3259580/0110972f-328c-4427-9cb1-32982315c8c2)
+
+## Further thoughts
+
+Standups need not be broken. However, it is an open question how to generalise the Round-Robin tournament to triplets $k=3$. If you know the answer, please reach out! 
