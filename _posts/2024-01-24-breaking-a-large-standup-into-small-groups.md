@@ -86,6 +86,7 @@ We can see that each player was matched up exactly once with all others via thre
 The tournament takes 13 days because each player will each day face two of the remaining 26 oppoonents. To find a viable tournament schedule, we picture the telefon-dial from $n=9$ stacked three times. The result is a 3x3x3 cube, which we call 3-cube for short. Our strategy is to first exploit the three spatial orientations to reduce the the cube to a stack of 3x3 dials, 3-squares for short. We already know how to solve 3-squares from the previous section. In a second step, we come up with matches that use the full 3-dimensional structure, meaning that the three players do not share any 3-square. Let's start.
 
 **Scheduling based on 3-squares**
+
 The first 4 days, we apply the masks from above to each of the 3x3 slices: -,|,/,\
 
 The next 3 days, we turn our perspective on the cube by 90 degress to the right in the x-y plane. This gives us 3 novel 3x3 telefone dial pads (with different player numbers). Again, we apply the masks from above. There is a catch, however. The vertical mask is redundant because the columns were not affected by a turn in the x-y plane. The masks used are: -,/,\
@@ -93,6 +94,7 @@ The next 3 days, we turn our perspective on the cube by 90 degress to the right 
 The next 2 days, we turn our perspective on the cube by another 90 degrees in the x-z plane. If we turned in the x-y plane we would return to initial perspective modulo a mirror. At this point, all spatial dimensions have been used for match-ups via columns (vertical or horizontals). We use the masks: /,\.
 
 **Scheduling based for the center of the cube**
+
 With 9 days of the unique matches scheduled, we covered each way to decompose the 3-cube into 3-squares. The remaining 4 days, we find match ups that go beyond 3-squares but use locations from all over the 3-cube instead. Each match must contain three players from different 3-squares of the cube, no matter from which perspective we used for slicing.
 
 To have a starting point, we recognise that the central location in the cube is unique. It shares a 3-square with all other locations except for the 8 corners of the cube. The only solution are the 4 cube-diagonals. To see this, take any corner location and central location in the cube. To find the final player in the match, we recognise that the corner location shares slices with 6 out of the 7 remaining corners. Therefore, only the opposite corner location is permissible in the match.
