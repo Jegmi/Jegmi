@@ -4,7 +4,7 @@ What I missed most when I worked in industry was not being able to share my work
 
 You will find notes about:
   1. statistics and machine learning applied to clinical data
-  2. procedures and use-cases at Mt Sinia hospital
+  2. procedures and use-cases at Mt Sinai hospital
   3. the commercialisation of my applied research via a spin-off
 
 If something strikes you as interesting, as wrong or both, feel free to reach out!
