@@ -31,7 +31,7 @@ The final panel shows all points together. It looks messy. But you can see the d
 
 Now, we consider a modification of the Round-Rubin Tournament. Instead of 1on1 matches, we consider three-player matches. The goal is to organise the matches such that players face each other exactly once and have zero wait times. If on the first day of the tournament we schedule a match between the first three players $(1,2,3)$, the remaining tournament days should include the match $(1,4,5)$ but not the match $(1,2,4)$. 
 
-Under these constraints, many group sizes $n$ do not have a solution. Consider $n=4$. If we schedule $(1,2,3)$ on day one, we already have a wait day for player 4. Even if we did not care about wait times, we still run into the issue that all players need to be matched with player $4$ in a three-player game during the rest of the tournament. Yet, we already ran out of permisslbe options $x$ to complete the match up (1,4, x) because the first three players were already matched on day one. This is why we need additional assumption about the group size $n$. (Remember that the Round-Rubin Tournament required the assumption of an even number of players too)
+Under these constraints, many group sizes $n$ do not have a solution. Consider $n=4$. If we schedule $(1,2,3)$ on day one, we already have a wait day for player 4. Even if we did not care about wait times, we still run into the issue that all players need to be matched with player $4$ during the course of the tournament. But we ran out of permisslbe options $x$ to complete the match up (1,4, x) because player 1 has been matched with 2 and 3 on day one already. This is why we need additional assumption about the group size $n$. (Remember that the Round-Rubin Tournament required the assumption of an even number of players too.)
 
 So far, I have only found solutions for the first three powers of three: $n=3$, $n=9$ and $n=27$. Since $n=3$ is trivial, let us focus on the later two.
 
@@ -39,47 +39,29 @@ So far, I have only found solutions for the first three powers of three: $n=3$, 
 
 A three-player Round-Rubin Tournament requires 4 days for $n=9$. For instance, player 1 will be matched up with 2 other players per day. After 4 days, they will have been matched with the remaining players $2$ to $9$.
 
-With each player being represented by a number, we visualise the solution as masks on a telefone pad:
+With each player being represented by a number, we visualise the solution as masks on a telefone pad. I put the numbers on the 3x3 square of Ruby-Cube because it prepares us to think about the $n=27$ case later on:
 
-|         |         |         |
-|---------|---------|---------|
-| 1 | 2 | 3 |
-| 4 | 5 | 6 |
-| 7 | 8 | 9 |
+<img width="536" alt="order" src="https://github.com/Jegmi/jegmi.github.io/assets/3259580/8871a753-1405-4a34-93c2-ad645fea912d">
 
-On day 1, we organise three matches A, B and C as horizontals:
+On day 1, we organise three matches horizontals. Each color represents a match-up:
 
-|         |         |         |
-|---------|---------|---------|
-| A | A | A |
-| B | B | B |
-| C | C | C |
+<img width="265" alt="rows" src="https://github.com/Jegmi/jegmi.github.io/assets/3259580/e8cbacc4-fd9b-4995-a2c6-08f97c86504f">
 
-On day 2, we organise matches as verticals:
+On day 2, we organise matches as verticals. Colors are now aligned with columns:
 
-|         |         |         |
-|---------|---------|---------|
-| A | B | C |
-| A | B | C |
-| A | B | C |
+<img width="277" alt="colums" src="https://github.com/Jegmi/jegmi.github.io/assets/3259580/c9e84c28-1ee6-4cc2-891e-9978cf947f23">
 
 Note that the overlap between matches on the first and second day is only one players because horizontals and verticals overlap only in one location in the grid. At this point, each players has been matched with their own horizontal and vertical. Player 1, for example, need to be matched with the bottom-right 2x2 matrix in the coming two days. We achieve this by using (wrapped) diagonals on day 3:
 
-|         |         |         |
-|---------|---------|---------|
-| A | B | C |
-| B | C | A |
-| C | A | B |
+<img width="466" alt="diags" src="https://github.com/Jegmi/jegmi.github.io/assets/3259580/fe66a736-32c7-44f4-b487-1514ba7fe3e2">
 
-On day 4, the final day, we organise diagonals again change their orientation by 90 degrees:
+On day 4, the final day, we organise diagonals again change their orientation by 90 degrees.
 
-|         |         |         |
-|---------|---------|---------|
-| A | B | C |
-| C | A | B |
-| B | C | A |
+We can see that each player was matched up exactly once with all others via three-player games:
 
-We can see that each player was matched up exactly once with all others via three-player games. The short-hands for these masks will be -,|,/,\.
+<img width="265" alt="n=9 player table" src="https://github.com/Jegmi/jegmi.github.io/assets/3259580/7d106b71-2452-4cfe-b070-df032298d6f1">
+
+
 
 ### Solution for $n=27$:
 
@@ -87,15 +69,29 @@ The tournament takes 13 days because each player will each day face two of the r
 
 **Scheduling based on 3-squares**
 
-The first 4 days, we apply the masks from above to each of the 3x3 slices: -,|,/,\
+The first 4 days, we apply the strategy from the case of $n=9$ players to a slice each. Above we had the 3x3x3-cube with black numbers on the white squares. These white squares represent one out of 3 slices.
 
-The next 3 days, we turn our perspective on the cube by 90 degress to the right in the x-y plane. This gives us 3 novel 3x3 telefone dial pads (with different player numbers). Again, we apply the masks from above. There is a catch, however. The vertical mask is redundant because the columns were not affected by a turn in the x-y plane. The masks used are: -,/,\
+The next 3 days, we turn our perspective on the cube by 90 degress to the right in the x-y plane. This gives us 3 novel 3x3 telefone dial pads, which represent different players than before. Again, we work through the 3 slices. There is a catch, however. The vertical match-up is redundant because the columns were not affected by a turn in the x-y plane.
 
-The next 2 days, we turn our perspective on the cube by another 90 degrees in the x-z plane. If we turned in the x-y plane we would return to initial perspective modulo a mirror. At this point, all spatial dimensions have been used for match-ups via columns (vertical or horizontals). We use the masks: /,\.
+<img width="542" alt="order-turned" src="https://github.com/Jegmi/jegmi.github.io/assets/3259580/7289a665-3e33-4ec0-af2d-bee3a8ce3aef">
+
+
+The next 2 days, we turn our perspective on the cube by another 90 degrees in the x-z plane. If we turned in the x-y plane we would return to initial perspective modulo a mirror. At this point, all spatial dimensions have been used for match-ups via columns (vertical or horizontals). We only need to apply the diagonal match-ups.
+
 
 **Scheduling based for the center of the cube**
 
-With 9 days of the unique matches scheduled, we covered each way to decompose the 3-cube into 3-squares. The remaining 4 days, we find match ups that go beyond 3-squares but use locations from all over the 3-cube instead. Each match must contain three players from different 3-squares of the cube, no matter from which perspective we used for slicing.
+With 9 days of the unique matches scheduled, we covered each way to decompose the 3-cube into 3-squares. The remaining 4 days, we find match ups that go beyond 3-squares but use locations from all over the 3-cube instead. Each match must contain three players from different 3-squares of the cube, no matter from which perspective we used for slicing. 
+
+For example, the player represented by the orange circle needs to be matched with the players represented by the stars (with another 4 stars on the back-side of the 3x3x3 cube). 
+
+<img width="532" alt="Screenshot 2024-03-14 at 12 04 28" src="https://github.com/Jegmi/jegmi.github.io/assets/3259580/b7940710-e038-44d3-b9c6-11882a8be49d">
+
+
+Another example is the player represented by the orange star. The player must be matched with the green circles. (There is another pair of circles on the back of the 3x3x3-cube.)
+
+<img width="549" alt="Screenshot 2024-03-14 at 12 05 46" src="https://github.com/Jegmi/jegmi.github.io/assets/3259580/e27ad9ff-52ee-482c-bf60-0a1894c994eb">
+
 
 To have a starting point, we recognise that the central location in the cube is unique. It shares a 3-square with all other locations except for the 8 corners of the cube. The only solution are the 4 cube-diagonals. To see this, take any corner location and central location in the cube. To find the final player in the match, we recognise that the corner location shares slices with 6 out of the 7 remaining corners. Therefore, only the opposite corner location is permissible in the match.
 
